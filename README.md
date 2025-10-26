@@ -1,6 +1,6 @@
 # Database Bundle Mod
 
-This Fabric mod bundles common database drivers and provides a unified API for other mods.
+This Fabric mod bundles common database drivers for use in other mods.
 
 The included libraries are:
 
@@ -10,8 +10,8 @@ The included libraries are:
 - PostgreSQL JDBC driver (42.7.8)
 - SQLite JDBC driver (3.50.3.0)
 
-The mod exists to reduce duplication of large database libraries. 
-Instead of including these libraries in every mod separately, this mod contains them all. 
+The mod exists to reduce duplication of large database libraries.
+Instead of including these libraries in every mod separately, this mod contains them all.
 
 # Maven / gradle:
 
