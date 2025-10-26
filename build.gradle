@@ -1,0 +1,98 @@
+plugins {
+    id 'fabric-loom' version '1.12-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+}
+
+def bundledDeps = [
+        "org.mongodb:mongodb-driver-sync:5.2.1",
+        "org.mongodb:mongodb-driver-core:5.2.1",
+        "org.mongodb:bson:5.2.1",
+        "org.mongodb:bson-kotlin:5.2.1",
+        "com.zaxxer:HikariCP:5.1.0",
+        "org.mariadb.jdbc:mariadb-java-client:3.5.6",
+        "org.postgresql:postgresql:42.7.8",
+        "org.xerial:sqlite-jdbc:3.50.3.0"
+]
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    api platform("org.mongodb:mongodb-driver-bom:5.6.1")
+    include platform("org.mongodb:mongodb-driver-bom:5.6.1")
+
+    def deps = [
+            "org.mongodb:mongodb-driver-sync",
+            "org.mongodb:mongodb-driver-core",
+            "org.mongodb:bson",
+            "org.mongodb:bson-kotlin",
+            "com.zaxxer:HikariCP:5.1.0",
+            "org.mariadb.jdbc:mariadb-java-client:3.5.6",
+            "org.postgresql:postgresql:42.7.8",
+            "org.xerial:sqlite-jdbc:3.50.3.0"
+    ]
+
+    deps.each { dep ->
+        api dep
+        include dep
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.loader_version
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version
+    }
+}
+
+def targetJavaVersion = 21
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        it.options.release.set(targetJavaVersion)
+    }
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
+
+    repositories {
+    }
+}
