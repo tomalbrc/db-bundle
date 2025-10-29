@@ -23,10 +23,9 @@ dependencies {
     include platform("org.mongodb:mongodb-driver-bom:5.6.1")
 
     def deps = [
-            "org.mongodb:mongodb-driver-sync",
-            "org.mongodb:mongodb-driver-core",
-            "org.mongodb:bson",
-            "org.mongodb:bson-kotlin",
+            "org.mongodb:mongodb-driver-sync:4.9.1",
+            "org.mongodb:mongodb-driver-core:4.9.1",
+            "org.mongodb:bson:4.9.1",
             "com.zaxxer:HikariCP:5.1.0",
             "org.mariadb.jdbc:mariadb-java-client:3.5.6",
             "org.postgresql:postgresql:42.7.8",
