@@ -1,12 +1,14 @@
 package de.tomalbrc.dbBundle;
 
-import com.mojang.logging.LogUtils;
-import net.fabricmc.api.ModInitializer;
+import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 
-public class DbBundle implements ModInitializer {
+import javax.annotation.Nonnull;
+import java.util.logging.Level;
 
-    @Override
-    public void onInitialize() {
-        LogUtils.getLogger().info("Loaded DB-Bundle");
+public class DbBundle extends JavaPlugin {
+    public DbBundle(@Nonnull JavaPluginInit init) {
+        super(init);
+        this.getLogger().at(Level.INFO).log("Loaded DB-Bundle");
     }
 }

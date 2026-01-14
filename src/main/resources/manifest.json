@@ -1,0 +1,18 @@
+{
+  "Group": "${group}",
+  "Name": "${name}",
+  "Version": "1.0.0",
+  "Description": "Db bundle",
+  "Authors": [
+    {
+      "Name": "tomalbrc"
+    }
+  ],
+  "Website": "tomalbrc.de",
+  "ServerVersion": "*",
+  "Dependencies": {},
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "Main": "${entry_point}",
+  "IncludesAssetPack": false
+}
