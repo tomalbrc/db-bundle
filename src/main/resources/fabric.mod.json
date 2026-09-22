@@ -10,15 +10,8 @@
   "icon": "assets/db-bundle/icon.png",
   "environment": "server",
   "entrypoints": {
-    "main": [
+    "*": [
       "de.tomalbrc.dbBundle.DbBundle"
     ]
-  },
-  "mixins": [
-    "db-bundle.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": "*",
-    "fabric": "*"
   }
 }
